@@ -1,1 +1,1 @@
-# sistemas-distribu-dos
+# sistemas-distribuidos
