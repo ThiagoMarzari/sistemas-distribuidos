@@ -17,6 +17,9 @@ public class ServidorTCPInterface extends javax.swing.JFrame {
     public ServidorTCPInterface() {
         listaClientes = new ArrayList<>();
         initComponents();
+        
+        tableModel = (DefaultTableModel) jTable1.getModel();
+        tableModel.setRowCount(0);
     }
 
     private void abrirConexao() {
@@ -142,7 +145,7 @@ public class ServidorTCPInterface extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonAbrirConexaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAbrirConexaoActionPerformed
-        // TODO add your handling code here:
+        abrirConexao();
     }//GEN-LAST:event_jButtonAbrirConexaoActionPerformed
 
     public static void main(String args[]) {

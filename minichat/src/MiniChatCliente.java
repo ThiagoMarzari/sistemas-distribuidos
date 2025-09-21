@@ -1,4 +1,3 @@
-
 import java.io.*;
 import java.net.*;
 import java.util.logging.Level;
@@ -7,7 +6,7 @@ import javax.swing.JOptionPane;
 
 public class MiniChatCliente {
 
-    static BufferedReader tecladoTerminal;
+    static BufferedReader tecladoTerminal = new BufferedReader(new InputStreamReader(System.in));
     static Socket socketCliente;
     static ObjectOutputStream saida;
     static ObjectInputStream entrada;
@@ -15,15 +14,13 @@ public class MiniChatCliente {
     public static void main(String[] args) throws IOException {
         String apelido = "CLIENTE";
         String servidorEndereco = "localhost";//JOptionPane.showInputDialog(null, "Informe o endereco IP do servidor");
-        int portaNumero = 4242; //Integer.parseInt(JOptionPane.showInputDialog(null, "Informe o numero da porta logica do servidor: "));
+        int portaNumero = 8888; //Integer.parseInt(JOptionPane.showInputDialog(null, "Informe o numero da porta logica do servidor: "));
 
         try {
             socketCliente = new Socket(servidorEndereco, portaNumero);//CONSTRUTOR DO CLIENTE CONECTANDO COM O SERVIDOR
 
             saida = new ObjectOutputStream(socketCliente.getOutputStream());
             entrada = new ObjectInputStream(socketCliente.getInputStream());
-
-            tecladoTerminal = new BufferedReader(new InputStreamReader(System.in));
 
             new Thread() {
                 @Override
