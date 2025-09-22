@@ -11,13 +11,11 @@ public class ClienteTCPBasico {
 
     public static void main(String[] args) {
         try {
-            int porta = 4242;
+            String porta = JOptionPane.showInputDialog(null, "Digite a porta");
             String nome = JOptionPane.showInputDialog(null, "Nome completo");
 
             //Estalece conexao com o servidor
-            Socket cliente = new Socket("localhost", porta);
-            //enviar o nome do cliente
-
+            Socket cliente = new Socket("localhost", Integer.parseInt(porta));
             // Envia o nome como String
             Comunicador.enviaObjeto(cliente, nome);
 

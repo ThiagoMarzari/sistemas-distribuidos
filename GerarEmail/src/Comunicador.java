@@ -6,6 +6,7 @@ import java.net.Socket;
 public class Comunicador {
 
     // Envia qualquer objeto (Pessoa, String, etc.)
+    // Object -> é generico, posso enviar qualquer coisa
     public static void enviaObjeto(Socket s, Object obj) {
         try {
             ObjectOutputStream escritor = new ObjectOutputStream(s.getOutputStream());
