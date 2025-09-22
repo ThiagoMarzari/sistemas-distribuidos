@@ -1,30 +1,34 @@
+
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 public class Comunicador {
 
-    public static Pessoa recebeObjeto(Socket s) {
+    // Envia qualquer objeto (Pessoa, String, etc.)
+    public static void enviaObjeto(Socket s, Object obj) {
         try {
-            //Cria um objeto de fluxo de dados de entrada, para poder receber um objeto do tipo Pessoa de um socket s
-            ObjectInputStream leitor = new ObjectInputStream(s.getInputStream());
-            Pessoa p = (Pessoa) leitor.readObject();
-            return p;
+            ObjectOutputStream escritor = new ObjectOutputStream(s.getOutputStream());
+            escritor.flush();
+            System.out.println("Enviando objeto: " + obj);
+            escritor.writeObject(obj);
+            escritor.flush();
+            // Não fecha o stream aqui!
         } catch (Exception e) {
-            return null;
+            System.out.println("Erro ao enviar objeto: " + e.getMessage());
         }
     }
 
-    public static void enviaObjeto(Socket s, Pessoa p) {
+    // Recebe qualquer objeto (Pessoa, String, etc.)
+    public static Object recebeObjeto(Socket s) {
         try {
-            //Cria um objeto de fluxo de dados de de saída, para poder enviar dados pelo socket s
-            ObjectOutputStream escritor = new ObjectOutputStream(s.getOutputStream());
-            escritor.flush();
-            System.out.println("Enviarei " + p.getNome() + " ; "+ p.getEmail());
-            escritor.writeObject(p);
-            escritor.close();
+            ObjectInputStream leitor = new ObjectInputStream(s.getInputStream());
+            Object recebido = leitor.readObject();
+            System.out.println("Objeto recebido: " + recebido);
+            return recebido;
         } catch (Exception e) {
-            System.out.println("Erro ao enviar objeto: " + e.getMessage());
+            System.out.println("Erro ao receber objeto: " + e.getMessage());
+            return null;
         }
     }
 }
