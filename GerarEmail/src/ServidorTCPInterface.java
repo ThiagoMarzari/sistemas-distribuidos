@@ -37,9 +37,8 @@ public class ServidorTCPInterface extends javax.swing.JFrame {
                 int portaCliente = cliente.getPort();
                 System.out.println("Cliente conectado no IP: " + enderecoIP);
                 System.out.println("Cliente conectado via porta: " + portaCliente);
-
-                ObjectInputStream entrada = new ObjectInputStream(cliente.getInputStream());
-                String nomePessoa = (String) entrada.readObject();
+                
+                String nomePessoa = (String) Comunicador.recebeObjeto(cliente);
 
                 // Gera o e-mail a partir do nome
                 String[] vetorNome = nomePessoa.split(" ");
@@ -60,7 +59,7 @@ public class ServidorTCPInterface extends javax.swing.JFrame {
                 Comunicador.enviaObjeto(cliente, p);
                 cliente.close();
             }
-        } catch (IOException | ClassNotFoundException e) {
+        } catch (IOException e) {
             System.out.println("Erro no servidor: " + e.getMessage());
         }
     }
