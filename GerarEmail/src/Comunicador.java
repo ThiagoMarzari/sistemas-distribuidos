@@ -15,13 +15,16 @@ public class Comunicador {
         }
     }
 
-    public static void enviaObjeto(Socket s, String nome) {
+    public static void enviaObjeto(Socket s, Pessoa p) {
         try {
             //Cria um objeto de fluxo de dados de de saída, para poder enviar dados pelo socket s
             ObjectOutputStream escritor = new ObjectOutputStream(s.getOutputStream());
-            System.out.println("Enviarei " + nome);
-            escritor.writeObject(nome);
+            escritor.flush();
+            System.out.println("Enviarei " + p.getNome() + " ; "+ p.getEmail());
+            escritor.writeObject(p);
+            escritor.close();
         } catch (Exception e) {
+            System.out.println("Erro ao enviar objeto: " + e.getMessage());
         }
     }
 }

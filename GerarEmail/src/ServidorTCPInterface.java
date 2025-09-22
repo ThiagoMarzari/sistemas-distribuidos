@@ -56,16 +56,8 @@ public class ServidorTCPInterface extends javax.swing.JFrame {
                     atualizarTabela(p);
                 }
 
-                // Envia o objeto de volta para o cliente
-                ObjectOutputStream saida = new ObjectOutputStream(cliente.getOutputStream());
-                saida.flush();
-                if (!encontrado) {
-                    saida.writeObject(p);  // Envia a pessoa criada se não estiver na lista
-                } else {
-                    saida.writeObject(null);  // Envia null se já estiver na lista
-                }
-
-                saida.close();
+                // Envia o objeto de volta para o cliente - Agora via comunicador
+                Comunicador.enviaObjeto(cliente, p);
                 cliente.close();
             }
         } catch (IOException | ClassNotFoundException e) {
